@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 alphaValue = 0.75
 colorValue = 'green'
 
-def histGrapher(dataArray, statsDict, frequencyArray, binArray):
+def histGrapher(dataArray, statsDict, frequencyArray, binArray, title):
 
 	# Extract mean and standard deviation from the stats dictionary
 	mean = statsDict['mean']
@@ -29,7 +29,7 @@ def histGrapher(dataArray, statsDict, frequencyArray, binArray):
 	# Set up all the title and axis information
 	plt.xlabel('test')
 	plt.ylabel('Frequency')
-	plt.title(r'$\mathrm{Histogram\ of\ IQ:}\ \mu=' + str(round(mean, 1)) + ',\ \sigma=' + str(round(stdev,1)) + '$')
+	plt.title(r'$\mathrm{Histogram\ of\ ' + title + ':}\ \mu=' + str(round(mean, 1)) + ',\ \sigma=' + str(round(stdev,1)) + '$')
 	r'$\mathrm{Histogram\ of\ IQ:}\ \mu=100,\ \sigma=15$'
 	plt.axis(axisArray)
 	plt.grid(True)
