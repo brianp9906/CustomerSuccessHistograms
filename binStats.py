@@ -9,12 +9,16 @@ def binStats(reader):
 	binCount = 20
 	averageValues = []
 	stats = {}
+	customerNames = []
 
 	for idx, row in enumerate(reader):
 		# Trim off top empty and header row and remove all null datapoints
 		if idx == 2:
 			title = row[2]
 		if idx > 1 and row[averageCol] != 'No Data':
+			# Populate customer names array to tell you which customers are outliers
+			customerNames.append(row[0])
+
 			item = row[averageCol]
 			# If data is in thousands, trim off "K" and multiply value by 1000
 			if "K" in item:
@@ -35,4 +39,4 @@ def binStats(reader):
 	stats['min'] = min(averageValues)
 	stats['binSize'] = (stats['mean'] - stats['min']) / (binCount / 2)
 
-	return [averageValues, stats, title]
+	return [averageValues, stats, title, customerNames]

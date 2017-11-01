@@ -18,7 +18,7 @@ file = open(filename, permissions)
 # Initialize reader to parse file
 reader = csv.reader(file)
 
-[data, stats, title] = binStats(reader)
+[data, stats, title, customerNames] = binStats(reader)
 
 # Consider removing duplicate entries of datapoint names (and thus histogram names) by passing it as list(set(x))
 
@@ -31,5 +31,12 @@ for i in range(0,binCount):
 bins.append(max(data))
 
 frequencyArray = frequencySort(bins,data)
+
+###
+print "Outliers:"
+for idx, item in enumerate(data):
+    if item > bins[len(bins)-2]:
+        print customerNames[idx] + ' = ' + str(item)
+###
 
 histGrapher(data, stats, frequencyArray, bins, title)
