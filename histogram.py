@@ -1,5 +1,6 @@
 import csv, statistics, plotly
 from binSort import frequencySort
+from binStats import binStats
 
 # Designate the target .csv file to parse
 filename = 'alertsPerDevice.csv'
@@ -15,25 +16,7 @@ file = open(filename, permissions)
 # Initialize reader to parse file
 reader = csv.reader(file)
 
-# Initialize variables to contain datapoints from .csv and resulting statistical variables
-averageValues = []
-stats = {}
-
-for idx, row in enumerate(reader):
-	# Trim off top empty and header row and remove all null datapoints
-	if idx > 1 and row[averageCol] != 'No Data':
-		# Append all values of the "average" column to the averageValues array
-		averageValues.append(float(row[7]))
-
-# Using the now populated averageValues, fill the statistics dictionary with the required values
-stats['mean'] = statistics.mean(averageValues)
-stats['median'] = statistics.median(averageValues)
-stats['mode'] = statistics.mode(averageValues)
-stats['stdev'] = statistics.pstdev(averageValues)
-stats['variance'] = statistics.variance(averageValues)
-stats['max'] = max(averageValues)
-stats['min'] = min(averageValues)
-stats['binSize'] = (stats['mean'] - stats['min']) / (binCount / 2)
+[data, stats] = binStats(reader)
 
 # Consider removing duplicate entries of datapoint names (and thus histogram names) by passing it as list(set(x))
 
@@ -42,6 +25,6 @@ bins = []
 for i in range(0,binCount):
 	bins.append(i * stats['binSize'])
 
-
-
+frequencyArray = frequencySort(bins,data)
+print frequencyArray
 
