@@ -1,4 +1,5 @@
 import csv, statistics, plotly
+from binSort import frequencySort
 
 # Designate the target .csv file to parse
 filename = 'alertsPerDevice.csv'
@@ -41,24 +42,6 @@ bins = []
 for i in range(0,binCount):
 	bins.append(i * stats['binSize'])
 
-# This function takes an array of buckets and an array of data as input
-# and counts the number of datapoints in each bucket to produce y-axis data for a histogram
 
-def frequencySort(binArray, dataArray):
-	bins = len(binArray)
-	# Initialize frequency information to be returned
-	frequencyArray = []
-	for i in range(0,bins + 1):
-		frequencyArray.append(0)
-
-	for item in dataArray:
-		for idx, thing in enumerate(binArray):
-			# Put items from dataArray into 
-			if item >= thing and item < binArray[idx + 1]:
-				frequencyArray[idx] += 1
-			else:
-				frequencyArray[bins] += 1
-
-	return frequencyArray
 
 
