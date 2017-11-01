@@ -31,6 +31,5 @@ for i in range(0,binCount):
 bins.append(max(data))
 
 frequencyArray = frequencySort(bins,data)
-print frequencyArray
 
 histGrapher(data, stats, frequencyArray, bins, title)

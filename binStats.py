@@ -15,8 +15,14 @@ def binStats(reader):
 		if idx == 2:
 			title = row[2]
 		if idx > 1 and row[averageCol] != 'No Data':
+			item = row[averageCol]
+			# If data is in thousands, trim off "K" and multiply value by 1000
+			if "K" in item:
+				item = item.replace("K", "")
+				averageValues.append(float(item)*1000)
+			else:
+				averageValues.append(float(item))
 			# Append all values of the "average" column to the averageValues array
-			averageValues.append(float(row[7]))
 
 
 	# Using the now populated averageValues, fill the statistics dictionary with the required values
