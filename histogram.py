@@ -1,9 +1,11 @@
-import csv, statistics, plotly
+import csv, matplotlib
 from binSort import frequencySort
 from binStats import binStats
+from fileOpener import fileOpener
+from histGrapher import histGrapher
 
 # Designate the target .csv file to parse
-filename = 'alertsPerDevice.csv'
+filename = fileOpener()
 permissions = 'rwab'  # b flag may be required depending on the platform
 
 # location of the "average" column in our LogicMonitor report .csv
@@ -25,6 +27,10 @@ bins = []
 for i in range(0,binCount):
 	bins.append(i * stats['binSize'])
 
+# Append catch all bin at the end of bins for visibility into outlier values
+bins.append(max(data))
+
 frequencyArray = frequencySort(bins,data)
 print frequencyArray
 
+histGrapher(data, stats, frequencyArray, bins)
